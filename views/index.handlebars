@@ -13,11 +13,11 @@
         </p>
     </div>
     {{/each}}
-<h4 class="headers">Add a New Burger</h4>
-<form id="addBurger" class="button-size">
-  <textarea type="text" name="burger"></textarea>
-  <button id="addBurgerBtn" type="submit">Add the Burger</button>
-</form>
+    <h4 class="headers">Add a New Burger</h4>
+    <form id="addBurger" class="button-size">
+        <textarea type="text" name="burger"></textarea>
+        <button id="addBurgerBtn" type="submit">Add the Burger</button>
+    </form>
 </div>
 
 <div id="eatenContainer">
@@ -34,37 +34,32 @@
 
 <script type="text/javascript">
 
-$("#addBurgerBtn").on("click", function(event) {
-    event.preventDefault();
-    var newBurger = {
-        burger_name: $("#addBurger [name=burger]").val().trim()
-    };
-    $.ajax("/burgers", {
-        type: "POST",
-        data: newBurger
-    }).then(function() {
-        location.reload();
+    $("#addBurgerBtn").on("click", function (event) {
+        event.preventDefault();
+        var newBurger = {
+            burger_name: $("#addBurger [name=burger]").val().trim()
+        };
+        $.ajax("/burgers", {
+            type: "POST",
+            data: newBurger
+        }).then(function () {
+            location.reload();
+        });
     });
-});
 
-$(".eatBurger").on("click", function(event) {
-    event.preventDefault();
-    var idObj = {
-        id: $(this).data("burgerid")
-    };
+    $(".eatBurger").on("click", function (event) {
+        event.preventDefault();
+        var idObj = {
+            id: $(this).data("burgerid")
+        };
 
-    console.log(`You're eating the burger whose ID is ${idObj.id}`);
-    $.ajax("/devour", {
-        type: "PUT",
-        data: idObj
-    }).then(function() {
-        location.reload();
+        console.log(`You're eating the burger whose ID is ${idObj.id}`);
+        $.ajax("/devour", {
+            type: "PUT",
+            data: idObj
+        }).then(function () {
+            location.reload();
+        });
     });
-});
-
-
-
-
-
 
 </script>
