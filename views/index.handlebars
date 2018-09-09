@@ -8,7 +8,10 @@
     <div class="existingBurger">
         <p>
             {{#unless devoured}}{{this.id}}. {{this.burger_name}}
+            <form id="addCustomer">
+                <textarea type="text" name="customer"></textarea>
             <button data-burgerid="{{this.id}}" class="eatBurger">Devour!</button>
+            </form>
             {{/unless}}
         </p>
     </div>
@@ -51,9 +54,10 @@
         event.preventDefault();
         var idObj = {
             id: $(this).data("burgerid")
+            customer: $("#addCustomer [name=customer]").val().trim();
         };
 
-        console.log(`You're eating the burger whose ID is ${idObj.id}`);
+        console.log(`${idObj.customer} is eating the burger whose ID is ${idObj.id}`);
         $.ajax("/devour", {
             type: "PUT",
             data: idObj

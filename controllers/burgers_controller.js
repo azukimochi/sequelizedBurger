@@ -34,6 +34,7 @@ router.post("/burgers", function (req, res) {
 
 // PUT request to update the devoured boolean for a burger to show it's been eaten
 router.put("/devour", function (req, res) {
+    
     db.Burger.update({
         devoured: true
     }, {
