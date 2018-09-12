@@ -28,7 +28,7 @@
     {{#each burgers}}
     <div class="inexistentBurger">
         <p>
-            {{#if devoured}}{{this.id}}. {{this.burger_name}}{{/if}}
+            {{#if devoured}}{{this.id}}. {{this.burger_name}} {{/if}}
         </p>
     </div>
     {{/each}}
@@ -39,6 +39,7 @@
 
     $("#addBurgerBtn").on("click", function (event) {
         event.preventDefault();
+        console.log("A burger is being posted!");
         var newBurger = {
             burger_name: $("#addBurger [name=burger]").val().trim()
         };
@@ -53,13 +54,13 @@
     $(".eatBurger").on("click", function (event) {
         event.preventDefault();
         var idObj = {
-            id: $(this).data("burgerid")
-            customer: $("#addCustomer [name=customer]").val().trim();
+            id: $(this).data("burgerid"),
+            customer: $("#addCustomer [name=customer]").val().trim()
         };
 
         console.log(`${idObj.customer} is eating the burger whose ID is ${idObj.id}`);
         $.ajax("/devour", {
-            type: "PUT",
+            type: "POST",
             data: idObj
         }).then(function () {
             location.reload();

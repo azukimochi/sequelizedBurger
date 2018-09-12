@@ -5,7 +5,8 @@ var router = express.Router();
 
 // GET request to get all the burgers in the table 
 router.get("/", function (req, res) {
-    db.Burger.findAll({}).then(function (result) {
+    db.Burger.findAll({
+    }).then(function (result) {
         var data = result;
         res.render("index", { burgers: data });
     });
@@ -33,21 +34,27 @@ router.post("/burgers", function (req, res) {
 });
 
 // PUT request to update the devoured boolean for a burger to show it's been eaten
-router.put("/devour", function (req, res) {
-    
-    db.Burger.update({
-        devoured: true
-    }, {
-            where: {
-                id: req.body.id
+router.post("/devour", function (req, res) {
+    var burgerID = req.body.id;
+
+    db.Customer.create({
+        name: req.body.customer
+    }).then(function(result) {
+        console.log("This burger has been eaten!");
+        db.Burger.update({
+            devoured: true
+        }, {
+                where: {
+                    id: burgerID
             }
-        }).then(function (result) {
-            console.log(`The burger with the ID of ${req.body.id} has been devoured!`);
+        }).then(function(result) {
             res.status(200).end();
-        }).catch(function (err) {
+        }).catch(function(err) {
             res.json(err);
         });
+    });
 });
 
 module.exports = router;
+
 
