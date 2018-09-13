@@ -7,13 +7,13 @@ var router = express.Router();
 router.get("/", function (req, res) {
     var query = {};
     if (req.query.CustomerId) {
-      query.AuthorId = req.query.CustomerId;
+        query.AuthorId = req.query.CustomerId;
     }
-    
-    
+
     db.Burger.findAll({
         where: query,
-      include: [db.Customer]
+        include: [db.Customer],
+        order: [["burger_name", "ASC"]]
     }).then(function (result) {
         console.log(result);
         var data = result;
@@ -48,7 +48,7 @@ router.post("/devour", function (req, res) {
 
     db.Customer.create({
         name: req.body.customer
-    }).then(function(result) {
+    }).then(function (result) {
         console.log("This burger has been eaten!");
         db.Burger.update({
             devoured: true,
@@ -56,12 +56,12 @@ router.post("/devour", function (req, res) {
         }, {
                 where: {
                     id: burgerID
-            }
-        }).then(function(result) {
-            res.status(200).end();
-        }).catch(function(err) {
-            res.json(err);
-        });
+                }
+            }).then(function (result) {
+                res.status(200).end();
+            }).catch(function (err) {
+                res.json(err);
+            });
     });
 });
 

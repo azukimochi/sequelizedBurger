@@ -3,14 +3,14 @@
     <img src="/assets/img/burger.png">
 </div>
 <div id="unEatenContainer">
-    <h2 class="headers">On Your Table</h2>
+    <h2 class="headers">On Your Table (from A-Z)</h2>
     {{#each burgers}}
     <div class="existingBurger">
         <p>
             {{#unless devoured}}{{this.id}}. {{this.burger_name}}
             <form id="addCustomer">
-                <textarea type="text" name="customer"></textarea>
-            <button data-burgerid="{{this.id}}" class="eatBurger">Devour!</button>
+                <textarea type="text" placeholder="Customer's Name" name="customer"></textarea>
+                <button data-burgerid="{{this.id}}" class="eatBurger">Devour!</button>
             </form>
             {{/unless}}
         </p>
@@ -18,13 +18,13 @@
     {{/each}}
     <h4 class="headers">Add a New Burger</h4>
     <form id="addBurger" class="button-size">
-        <textarea type="text" name="burger"></textarea>
+        <textarea type="text" placeholder="Burger name" name="burger"></textarea>
         <button id="addBurgerBtn" type="submit">Add the Burger</button>
     </form>
 </div>
 
 <div id="eatenContainer">
-    <h3 class="headers">In your Stomach</h3>
+    <h3 class="headers">In your Stomach (from A-Z)</h3>
     {{#each burgers}}
     <div class="inexistentBurger">
         <p>
