@@ -5,8 +5,17 @@ var router = express.Router();
 
 // GET request to get all the burgers in the table 
 router.get("/", function (req, res) {
+    var query = {};
+    if (req.query.CustomerId) {
+      query.AuthorId = req.query.CustomerId;
+    }
+    
+    
     db.Burger.findAll({
+        where: query,
+      include: [db.Customer]
     }).then(function (result) {
+        console.log(result);
         var data = result;
         res.render("index", { burgers: data });
     });
@@ -42,7 +51,8 @@ router.post("/devour", function (req, res) {
     }).then(function(result) {
         console.log("This burger has been eaten!");
         db.Burger.update({
-            devoured: true
+            devoured: true,
+            CustomerId: result.id
         }, {
                 where: {
                     id: burgerID

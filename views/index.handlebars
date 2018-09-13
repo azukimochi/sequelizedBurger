@@ -28,7 +28,7 @@
     {{#each burgers}}
     <div class="inexistentBurger">
         <p>
-            {{#if devoured}}{{this.id}}. {{this.burger_name}} {{/if}}
+            {{#if devoured}}{{this.id}}. {{this.burger_name}} (eaten by {{this.Customer.name}}) {{/if}}
         </p>
     </div>
     {{/each}}
